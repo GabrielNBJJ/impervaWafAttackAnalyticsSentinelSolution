@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "FunctionName": {
-            "defaultValue": "ImpervaWAFAttackAnalytics",
+            "defaultValue": "ImpervaWAFAA",
             "minLength": 1,
             "maxLength": 30,
             "type": "string"
