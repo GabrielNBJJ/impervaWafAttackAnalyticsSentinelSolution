@@ -159,7 +159,7 @@
                         "ImpervaAPIKey": "[parameters('ImpervaAPIKey')]",
                         "ImpervaLogServerURI": "[parameters('ImpervaLogServerURI')]",
                         "logAnalyticsUri": "[variables('LogAnaltyicsUri')]",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://aka.ms/sentinel-impervawafcloud-functionapp"
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/GabrielNBJJ/impervaWafAttackAnalyticsSentinelSolution/raw/850cf9368112201b6af067c96bbf3009e255c438/Solutions/ImpervaCloudWAFAttackAnalytics/Data%20Connectors/ImpervaWAFAttackAnalyticsSentinelConn.zip"
                         
                     }
                 }
