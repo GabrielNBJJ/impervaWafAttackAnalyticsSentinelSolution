@@ -12,21 +12,21 @@
         "type": "string",
         "defaultValue": "sentinel",
         "metadata": {
-          "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Usually, this is 'workbook'"
+          "description": "The gallery that the workbook will been shown under. Supported values include workbook, tsg, etc. Leave as is."
         }
       },
       "workbookSourceId": {
         "type": "string",
         "defaultValue": "",
         "metadata": {
-          "description": "The resource ID of the associated log analytics space."
+          "description": "The full resource ID of the associated log analytics space. "
         }
       },
       "workbookId": {
         "type": "string",
         "defaultValue": "[newGuid()]",
         "metadata": {
-          "description": "The unique guid for this workbook instance"
+          "description": "The unique guid for this workbook instance. Leave as is."
         }
       }
     },

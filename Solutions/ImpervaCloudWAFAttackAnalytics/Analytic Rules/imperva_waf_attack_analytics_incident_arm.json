@@ -2,13 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "workspace": {
-            "type": "String"
+        "sentinel_workspace_name": {
+            "type": "String",
+            "metadata": {
+                "description": "The name of the Sentinel workspace where the rule will be deployed."
+            }
         }
     },
     "resources": [
         {
-            "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/8d837da0-0db9-4777-abd7-190b9f4603c3')]",
+            "name": "[concat(parameters('sentinel_workspace_name'),'/Microsoft.SecurityInsights/8d837da0-0db9-4777-abd7-190b9f4603c3')]",
             "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
             "kind": "Scheduled",
             "apiVersion": "2022-11-01-preview",

@@ -5,32 +5,50 @@
         "FunctionName": {
             "defaultValue": "ImpervaWAFAA",
             "minLength": 1,
-            "maxLength": 30,
-            "type": "string"
+            "maxLength": 18,
+            "type": "string",
+            "metadata": {
+                "description": "Name of the Function App that the connector will have. Used to also derive the storage account name."
+            }
         },
         "WorkspaceID": {
             "type": "string",
-            "defaultValue": "<workspaceID>"
+            "defaultValue": "<workspaceID>",
+            "metadata": {
+                "description": "The workspace Id of the target log analytics space."
+            }
         },
         "WorkspaceKey": {
             "type": "securestring",
-            "defaultValue": "<workspaceKey>"
+            "defaultValue": "<workspaceKey>",
+            "metadata": {
+                "description": "The workspace primary or secondary key of the target log analytics space."
+            }
         },
         "ImpervaAPIID": {
             "type": "string",
-            "defaultValue": "<ImpervaAPIID>"
+            "defaultValue": "<ImpervaAPIID>",
+            "metadata": {
+                "description": "The Imperva API ID, retrievable from Account Management/SIEM Logs/Attack Analytics Log Setup."
+              }
         },
         "ImpervaAPIKey": {
             "type": "securestring",
-            "defaultValue": "<ImpervaAPIKey>"
+            "defaultValue": "<ImpervaAPIKey>",
+            "metadata": {
+                "description": "The Imperva API Key, retrievable from Account Management/SIEM Logs/Attack Analytics Log Setup."
+              }
         },
         "ImpervaLogServerURI": {
             "type": "string",
-            "defaultValue": "<ImpervaLogServerURI>"
+            "defaultValue": "<ImpervaLogServerURI>",
+            "metadata": {
+                "description": "The Imperva Log Server URI, retrievable from Account Management/SIEM Logs/Attack Analytics Log Setup."
+              }
         }
     },
     "variables": {
-        "FunctionName": "[concat(toLower(parameters('FunctionName')), uniqueString(resourceGroup().id))]",
+        "FunctionName": "[concat(toLower(parameters('FunctionName')), substring(uniqueString(resourceGroup().id), 0, 6))]",
         "StorageSuffix": "[environment().suffixes.storage]",
         "LogAnaltyicsUri": "[replace(environment().portal, 'https://portal', concat('https://', toLower(parameters('WorkspaceID')), '.ods.opinsights'))]"
     },
