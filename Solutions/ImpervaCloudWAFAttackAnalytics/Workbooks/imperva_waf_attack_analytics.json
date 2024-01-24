@@ -190,6 +190,33 @@
       },
       "customWidth": "70",
       "name": "Target Endpoint breakdown"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "ImpervaWAFAttackAnalytics_CL\r\n| where TimeGenerated >= ago(90d) // Adjust the time range as needed\r\n| extend WeekStart = startofweek(TimeGenerated) // Calculate the start of the week for each event\r\n| summarize TotalEvents = sum(toint(cs2_s)), AlertCount = count() by WeekStart // Summarize by week\r\n| render areachart  // Visualize the result as a time chart",
+        "size": 0,
+        "title": "Event Aggregation Performance",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "Event Aggregation Performance"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "ImpervaWAFAttackAnalytics_CL\r\n| summarize TotalEvents = sum(toint(cs2_s)) by Name_s // Summarize total events by incident\r\n| top 5 by TotalEvents desc // Get the top 5 incidents with the most events",
+        "size": 0,
+        "title": "Top 5 incidents by events",
+        "timeContext": {
+          "durationMs": 604800000
+        },
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "Top 5 incidents by events"
     }
   ],
   "fallbackResourceIds": [
