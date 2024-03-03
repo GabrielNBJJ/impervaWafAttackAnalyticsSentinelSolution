@@ -15,13 +15,12 @@ The first step is to deploy the Data Connector.
    
     b. Workspace Id. This is the workspace Id of the corresponding Log Analytics space which has Sentinel on top. Can be retrieved from the "Properties" blade from the associated Log Analytics space.
    
-   ![image](https://github.com/GabrielNBJJ/impervaWafAttackAnalyticsSentinelSolution/assets/58338986/267fdb0a-9304-46e8-8d3c-8d0d6259e882)
+![workspace id and primary key](https://github.com/GabrielNBJJ/impervaWafAttackAnalyticsSentinelSolution/assets/58338986/b24cf957-8071-44fe-91da-1d393811bdd2)
 
 
     c. Workspace Key. The primary or secondary key associated with the Log Analytics space. Can be retrieved from the "Agent" blade on the associated Log Analytics space.
 
-   ![image](https://github.com/GabrielNBJJ/impervaWafAttackAnalyticsSentinelSolution/assets/58338986/5981b30b-1355-4e9d-9564-a9fd8a99f287)
-
+![workspace id and primary key](https://github.com/GabrielNBJJ/impervaWafAttackAnalyticsSentinelSolution/assets/58338986/b24cf957-8071-44fe-91da-1d393811bdd2)
    
     d. Imperva API ID, Imperva API Key and Imperva Log Server URI are all values that are retrieved from the Imperva portal. Head to Account Management/SIEM Logs/Attack Analytics Log Setup to retrieve the corresponding values.
    
