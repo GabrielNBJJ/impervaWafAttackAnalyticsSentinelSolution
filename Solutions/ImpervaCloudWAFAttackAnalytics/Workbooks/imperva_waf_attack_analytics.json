@@ -2,6 +2,21 @@
   "version": "Notebook/1.0",
   "items": [
     {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "ImpervaWAFAttackAnalytics_CL\r\n| summarize TotalEvents = sum(toint(cs1_s)) by Name_s // Summarize total events by incident\r\n| top 5 by TotalEvents desc // Get the top 5 incidents with the most events",
+        "size": 0,
+        "title": "Top 5 incidents by events",
+        "timeContext": {
+          "durationMs": 604800000
+        },
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "name": "Top 5 incidents by events"
+    },
+    {
       "type": 9,
       "content": {
         "version": "KqlParameterItem/1.0",
@@ -66,7 +81,7 @@
               "durationMs": 86400000
             },
             "value": {
-              "durationMs": 86400000
+              "durationMs": 2592000000
             }
           }
         ],
@@ -80,7 +95,7 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "ImpervaWAFAttackAnalytics_CL\r\n| extend ip_list = split(cs5_s, \",\")\r\n| mv-expand ip_list to typeof(string)\r\n| extend GeoInfo = parse_json(geo_info_from_ip_address(ip_list))\r\n| evaluate bag_unpack(GeoInfo)\r\n| extend Country = tostring(country), IP = tostring(ip_list), Lat = todouble(latitude), Long = todouble(longitude)\r\n| summarize CountByIP = count() by IP, Country, Lat, Long\r\n| summarize CountByCountry = sum(CountByIP) by Country, Lat, Long\r\n| project Country, Lat, Long, CountByCountry\r\n",
+        "query": "ImpervaWAFAttackAnalytics_CL\r\n| extend ip_list = split(cs5_s, \",\")\r\n| mv-expand ip_list to typeof(string)\r\n| extend GeoInfo = parse_json(geo_info_from_ip_address(ip_list))\r\n| evaluate bag_unpack(GeoInfo)\r\n| extend Country = tostring(country), IP = tostring(ip_list), Lat = todouble(latitude), Long = todouble(longitude)\r\n| summarize CountByIP = count() by IP, Country, Lat, Long\r\n| summarize CountByCountry = sum(CountByIP) by Country, Lat, Long\r\n",
         "size": 3,
         "title": "Originating Attacks by Geolocation",
         "timeContextFromParameter": "Timerange",
@@ -94,7 +109,7 @@
           "longitude": "Long",
           "sizeSettings": "CountByCountry",
           "sizeAggregation": "Count",
-          "legendMetric": "latitude",
+          "legendMetric": "CountByCountry",
           "legendAggregation": "Sum",
           "itemColorSettings": {
             "nodeColorField": "CountByCountry",
@@ -147,13 +162,13 @@
         "version": "KqlItem/1.0",
         "query": "ImpervaWAFAttackAnalytics_CL\r\n| where cs2_s != \"100\" and cs2_s != \"\"\r\n| extend endpoint = request_s, attack_type = cs7_s, percent_blocked = cs2_s, severity = Severity_s\r\n| project endpoint, attack_type,severity, percent_blocked",
         "size": 0,
-        "title": "Unmitigated Attacks",
+        "title": "Attacks with alerted events",
         "timeContextFromParameter": "Timerange",
         "queryType": 0,
         "resourceType": "microsoft.operationalinsights/workspaces"
       },
       "customWidth": "75",
-      "name": "Unmitigated Attacks"
+      "name": "Attacks with alerted events"
     },
     {
       "type": 1,
@@ -195,32 +210,17 @@
       "type": 3,
       "content": {
         "version": "KqlItem/1.0",
-        "query": "ImpervaWAFAttackAnalytics_CL\r\n| where TimeGenerated >= ago(90d) // Adjust the time range as needed\r\n| extend WeekStart = startofweek(TimeGenerated) // Calculate the start of the week for each event\r\n| summarize TotalEvents = sum(toint(cs2_s)), AlertCount = count() by WeekStart // Summarize by week\r\n| render areachart  // Visualize the result as a time chart",
+        "query": "ImpervaWAFAttackAnalytics_CL\r\n| where TimeGenerated >= ago(90d) // Adjust the time range as needed\r\n| extend WeekStart = startofweek(TimeGenerated) // Calculate the start of the week for each event\r\n| summarize TotalEvents = sum(toint(cs1_s)), AlertCount = count() by WeekStart // Summarize by week\r\n| render areachart  // Visualize the result as a time chart",
         "size": 0,
         "title": "Event Aggregation Performance",
         "queryType": 0,
         "resourceType": "microsoft.operationalinsights/workspaces"
       },
       "name": "Event Aggregation Performance"
-    },
-    {
-      "type": 3,
-      "content": {
-        "version": "KqlItem/1.0",
-        "query": "ImpervaWAFAttackAnalytics_CL\r\n| summarize TotalEvents = sum(toint(cs2_s)) by Name_s // Summarize total events by incident\r\n| top 5 by TotalEvents desc // Get the top 5 incidents with the most events",
-        "size": 0,
-        "title": "Top 5 incidents by events",
-        "timeContext": {
-          "durationMs": 604800000
-        },
-        "queryType": 0,
-        "resourceType": "microsoft.operationalinsights/workspaces"
-      },
-      "name": "Top 5 incidents by events"
     }
   ],
   "fallbackResourceIds": [
-    "/subscriptions/0d8d4def-0015-4e50-89e9-b6bfe9c9542a/resourcegroups/security/providers/microsoft.operationalinsights/workspaces/az-sentinel-prd"
+    "/subscriptions/d6054757-99d2-46b6-a73b-28d900cc3554/resourcegroups/sentinel-dev/providers/microsoft.operationalinsights/workspaces/sentinel-dev"
   ],
   "fromTemplateId": "sentinel-UserWorkbook",
   "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
