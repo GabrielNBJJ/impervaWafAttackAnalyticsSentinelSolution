@@ -222,6 +222,6 @@
   "fallbackResourceIds": [
     "/subscriptions/d6054757-99d2-46b6-a73b-28d900cc3554/resourcegroups/sentinel-dev/providers/microsoft.operationalinsights/workspaces/sentinel-dev"
   ],
-  "fromTemplateId": "sentinel-UserWorkbook",
+  "fromTemplateId": "sentinel-Imperva WAF Attack Analytics",
   "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
 }
